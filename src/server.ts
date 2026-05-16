@@ -8,7 +8,7 @@ app.use(cors());
 app.use(express.json());
 const port = 8080;
 
-const JWT_SECRET = '928d6562f06ee08a2cccb3ca9af179c705ce6e9e60cad49919d87a2583744251';
+const JWT_SECRET = '928d6562f06ee08a2cccb3ca9af179c705ce6e9e60cad49919d87a2583744251'; //Replace with your secrete key
 
 interface Task {
     id: number;
@@ -153,13 +153,13 @@ app.delete('/task/delete/:id', authenticateToken, authorizeRole(['ADMIN']), (req
     const initialLength = tasksList.length;
 
     // Filter out the user with the matching ID
-    const tasks = tasksList.filter(task => task.id !== parseInt(id));
+    const tasks = tasksList.filter(task => task.id !== parseInt(id as string));
 
     if (tasks.length === initialLength) {
         return res.status(404).send('User not found');
     }
 
-    tasksList = tasksList.filter(task => task.id !== parseInt(id));
+    tasksList = tasksList.filter(task => task.id !== parseInt(id as string));
 
     return res.status(200).send('Success');
 });
