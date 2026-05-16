@@ -4,9 +4,9 @@ import jwt from 'jsonwebtoken';
 import cors from 'cors';
 
 const app = express();
+const port = 8080;
 app.use(cors());
 app.use(express.json());
-const port = 8080;
 
 const JWT_SECRET = '928d6562f06ee08a2cccb3ca9af179c705ce6e9e60cad49919d87a2583744251'; //Replace with your secrete key
 
@@ -63,7 +63,7 @@ let tasksList: Array<Task> = [
 ];
 
 app.get('/', (req: Request, res: Response) => {
-    res.send('Hello from TypeScript Express!');
+    res.status(200).json({ message: 'Hello from TypeScript Express!' });
 });
 
 app.post('/login', (req: Request, res: Response) => {
@@ -167,3 +167,5 @@ app.delete('/task/delete/:id', authenticateToken, authorizeRole(['ADMIN']), (req
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
 });
+
+export default app;
